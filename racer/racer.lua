@@ -16,7 +16,7 @@ for loops = 20, 1, -1 do
 	
 	repeat
 		local zone = tostring(Svc.ClientState.TerritoryType)
-		yield("/wait 2")
+		yield("/wait 5")
 		yield("/echo Queuing / Race loading...")
 	until zone == "390"
 
