@@ -5,7 +5,7 @@
 
 --The idea of this script is to make it slightly more successful at winning races rather than just
 --using other plugins that simply queue for 20 races.
-
+--It's not going to win every race!
 
 --This script relies on the plugin YesAlready to exit the dialog at the end of the race to return.
 --'YesAlready' > 'Bothers' > 'Minigames and Special Events' > 'RaceChocoboResult'
