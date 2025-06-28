@@ -405,7 +405,7 @@ local function AntiStuckCheck()
             if consecutiveStuckCount >= MAX_CONSECUTIVE_STUCKS then
                 LogInfo("[AntiStuck] Too many consecutive stuck attempts, leaving duty")
                 yield("/echo [AntiStuck] Too many consecutive stuck attempts, leaving duty")
-                if not ADIsStopped() then ADStop() end
+                if not IPC.AutoDuty.IsStopped() then IPC.AutoDuty.Stop() end
                 LeaveDuty()
                 consecutiveStuckCount = 0
                 return
@@ -634,7 +634,7 @@ CharacterStates.start = function()
         yield("/echo [WondrousTails] Player not available or occupied") yield("/wait 5")
         return
     elseif Svc.ClientState.LocalPlayer.Get() and Svc.ClientState.LocalPlayer.Name() and (IsPlayerAvailable() or Condition[ConditionFlag.Occupied39]) 
-        and not Condition[ConditionFlag.BoundByDuty] and not Condition[ConditionFlag.BoundByDuty56] and ADIsStopped() then
+        and not Condition[ConditionFlag.BoundByDuty] and not Condition[ConditionFlag.BoundByDuty56] and IPC.AutoDuty.IsStopped() then
         local target_zone_id = nil
         if command_value == "barracks" then
             target_zone_id = {[534]=1,[535]=1,[536]=1}
@@ -670,10 +670,10 @@ CharacterStates.start = function()
                 yield("/echo [WondrousTails] Repairing...")
             elseif  IPC.AutoDuty.GetConfig("AutoRepair") == "False" then
                 yield("/echo [WondrousTails] AutoRepair is disabled, enabling it...")
-                ADSetConfig("AutoRepair", "True")
+                IPC.AutoDuty.SetConfig("AutoRepair", "True")
             elseif  IPC.AutoDuty.GetConfig("AutoRepairPct") ~= tostring(RepairThreshold) then
                 yield("/echo [WondrousTails] AutoRepairPct is not set to " .. RepairThreshold .. ", setting it...")
-                ADSetConfig("AutoRepairPct", tostring(RepairThreshold))
+                IPC.AutoDuty.SetConfig("AutoRepairPct", tostring(RepairThreshold))
             else
                 yield("/autoduty repair") yield("/echo [WondrousTails] Try Repairing...")
             end
@@ -776,12 +776,12 @@ CharacterStates.start = function()
 
                     if duty.dutyId ~= nil and (dutyMode == "Trial" or dutyMode == "Raid" or dutyMode == "Regular") and  IPC.AutoDuty.GetConfig("Unsynced") == "False" then
                         yield("/echo [WondrousTails] Unsynced is disabled, enabling it...")
-                        ADSetConfig("Unsynced", "True")
+                        IPC.AutoDuty.SetConfig("Unsynced", "True")
                     end
 
                     if duty.dutyId ~= nil then
                         --[[        -- broken
-                        if not ADContentHasPath(duty.dutyId) then
+                        if not IPC.AutoDuty.ContentHasPath(duty.dutyId) then
                             yield("/echo [WondrousTails] Duty "..duty.dutyName.." does not have a path in AutoDuty, skipping...")
                         else
                         ]]
@@ -808,7 +808,7 @@ CharacterStates.start = function()
         return
     elseif IsInZone(duty.dutyId) and Svc.DutyState.IsDutyStarted() 
         and (Condition[ConditionFlag.BoundByDuty] or Condition[ConditionFlag.BoundByDuty56]) 
-        and IsPlayerAvailable() and ADIsLooping() then
+        and IsPlayerAvailable() and IPC.AutoDuty.IsLooping() then
         LogInfo("[WondrousTails] Duty Dungeon")
         State = CharacterStates.dutyDungeon
         return
@@ -912,10 +912,10 @@ CharacterStates.dutyDungeon = function()
         end
     end
 
-    -- if ADIsNavigating() and ADIsLooping() then
+    -- if IPC.AutoDuty.IsNavigating() and IPC.AutoDuty.IsLooping() then
     if IsInZone(duty.dutyId) and Svc.DutyState.IsDutyStarted() 
         and (Condition[ConditionFlag.BoundByDuty] or Condition[ConditionFlag.BoundByDuty56]) 
-        and IsPlayerAvailable() and ADIsLooping() then
+        and IsPlayerAvailable() and IPC.AutoDuty.IsLooping() then
         if WasPaused then
             yield("/wait 5")
             yield("/autoduty resume")
@@ -967,7 +967,7 @@ CharacterStates.dutyDungeon = function()
         end
         ManageCombatPlugins(true)
     elseif not IsInZone(duty.dutyId) and not Condition[ConditionFlag.BoundByDuty] and not Condition[ConditionFlag.BoundByDuty56] and IsPlayerAvailable() then
-        if not ADIsStopped() then ADStop() end
+        if not IPC.AutoDuty.IsStopped() then IPC.AutoDuty.Stop() end
         ManageCombatPlugins(false)
         lastCombatPosition = { x = 0, y = 0, z = 0 }
         lastCombatCheckTime = 0
@@ -1015,7 +1015,7 @@ local AutoDutySettings = {
 }
 for _, setting in ipairs(AutoDutySettings) do
     SavedSettings[setting] =  IPC.AutoDuty.GetConfig(setting) == "True"
-    if SavedSettings[setting] then yield("/echo [WondrousTails] Disabling " .. setting .. ": enabled") ADSetConfig(setting, "False") end
+    if SavedSettings[setting] then yield("/echo [WondrousTails] Disabling " .. setting .. ": enabled") IPC.AutoDuty.SetConfig(setting, "False") end
 end
 
 if HasPlugin("RotationSolver") then
@@ -1040,5 +1040,5 @@ if HasPlugin("RotationSolver") then
 end
 
 for setting, wasEnabled in pairs(SavedSettings) do
-    if wasEnabled then yield("/echo [WondrousTails] Restoring " .. setting .. " to enabled") ADSetConfig(setting, "True") end
+    if wasEnabled then yield("/echo [WondrousTails] Restoring " .. setting .. " to enabled") IPC.AutoDuty.SetConfig(setting, "True") end
 end
