@@ -11,6 +11,9 @@
 --'YesAlready' > 'Bothers' > 'Minigames and Special Events' > 'RaceChocoboResult'
 --'YesAlready' Repo (https://github.com/PunishXIV/YesAlready)
 
+--To Do:
+---Add in checks to end the script if the user cancels the queue.
+
 yield("/echo Chocobo Racing Script Starting...")
 
 
@@ -28,38 +31,38 @@ for loops = NumOfRaces, 1, -1 do
 		yield("/pcall ContentsFinder true 3 11")
 		yield("/pcall ContentsFinder true 12 0 <wait.1>")
 	if Addons.GetAddon("ContentsFinderConfirm").Ready then yield("/click duty_commence") end
-		yield("/echo Queueing for Race Number:"..racenum)
+		--yield("/echo Queueing for Race Number:"..racenum)
 	
 	repeat
 		local zone = tostring(Svc.ClientState.TerritoryType)
 		yield("/wait 5")
 	until zone == "390"
 
-	yield("/echo Race successfully loaded.")
+	--yield("/echo Race successfully loaded.")
 
 	repeat
 		supersprinting = false
-		yield("/echo Attempting to Super Sprint.")
+		--yield("/echo Attempting to Super Sprint.")
 		Actions.ExecuteAction(58, ActionType.ChocoboRaceAbility)
 		yield("/wait 0.1")
 		for i = 0, 29 do
 			local status = Svc.ClientState.LocalPlayer.StatusList[i]
 			if status.StatusId == 1058 then
 				supersprinting = true
-				yield("/echo Super Sprint Active.")
+				--yield("/echo Super Sprint Active.")
 			end
 		end
 	until supersprinting == true
 
-	yield("/echo Hugging the left-side of the track.")
+	--yield("/echo Hugging the left-side of the track.")
 	yield("/hold A")
 	yield("/wait 5")
 	yield("/release A")
-	yield("/echo Waiting 10 Seconds then using Choco Cure III.")
+	--yield("/echo Waiting 10 Seconds then using Choco Cure III.")
 	yield("/wait 10")
 	Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) --6 = Choco Cure III
 
-	yield("/echo Now attempting to use any Race Items, and Choco Cure III, every 5 seconds.")
+	--yield("/echo Now attempting to use any Race Items, and Choco Cure III, every 5 seconds.")
 	repeat
 		for i = 1, 11 do
 			Actions.ExecuteAction(i, luanet.enum(ActionType, 'ChocoboRaceItem')) -- Cycles through all items.
@@ -70,7 +73,7 @@ for loops = NumOfRaces, 1, -1 do
 	until zone ~= "390"
 
 	repeat
-		yield("/echo Waiting till the player is available again...")
+		--yield("/echo Waiting till the player is available again...")
 		yield("/wait 2")
 	until Player.Available
 
