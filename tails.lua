@@ -668,10 +668,10 @@ CharacterStates.start = function()
         elseif RepairThreshold > 0 and NeedsRepair(RepairThreshold - 1) then
             if Condition[ConditionFlag.Occupied39] then
                 yield("/echo [WondrousTails] Repairing...")
-            elseif ADGetConfig("AutoRepair") == "False" then
+            elseif  IPC.AutoDuty.GetConfig("AutoRepair") == "False" then
                 yield("/echo [WondrousTails] AutoRepair is disabled, enabling it...")
                 ADSetConfig("AutoRepair", "True")
-            elseif ADGetConfig("AutoRepairPct") ~= tostring(RepairThreshold) then
+            elseif  IPC.AutoDuty.GetConfig("AutoRepairPct") ~= tostring(RepairThreshold) then
                 yield("/echo [WondrousTails] AutoRepairPct is not set to " .. RepairThreshold .. ", setting it...")
                 ADSetConfig("AutoRepairPct", tostring(RepairThreshold))
             else
@@ -774,7 +774,7 @@ CharacterStates.start = function()
                         dutyMode = "Regular"
                     end
 
-                    if duty.dutyId ~= nil and (dutyMode == "Trial" or dutyMode == "Raid" or dutyMode == "Regular") and ADGetConfig("Unsynced") == "False" then
+                    if duty.dutyId ~= nil and (dutyMode == "Trial" or dutyMode == "Raid" or dutyMode == "Regular") and  IPC.AutoDuty.GetConfig("Unsynced") == "False" then
                         yield("/echo [WondrousTails] Unsynced is disabled, enabling it...")
                         ADSetConfig("Unsynced", "True")
                     end
@@ -1014,7 +1014,7 @@ local AutoDutySettings = {
     "EnableTerminationActions"
 }
 for _, setting in ipairs(AutoDutySettings) do
-    SavedSettings[setting] = ADGetConfig(setting) == "True"
+    SavedSettings[setting] =  IPC.AutoDuty.GetConfig(setting) == "True"
     if SavedSettings[setting] then yield("/echo [WondrousTails] Disabling " .. setting .. ": enabled") ADSetConfig(setting, "False") end
 end
 
