@@ -140,7 +140,7 @@ local ClassList =
 }
 
 local PluginCommands = {
-    NotUse = true,
+    NotUse = false,
     RotationSolver = {
         NotUse = true,
         enable = "/rotation auto",
