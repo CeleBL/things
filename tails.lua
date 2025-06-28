@@ -88,7 +88,7 @@ local RepairThreshold = 99    -- the threshold it needs to drop before Repairing
 
 local GC_Turnin_Free_Slots = 0 -- the amount of free inventory slots when needed to Turnin in GC the end of script (set it to 0 if you don't want it to Turnin GC)
 
-local chat_command_between_loops = "" -- set it to "" if you don't want to use it
+local chat_command_between_loops = "/ad goto Barracks" -- set it to "" if you don't want to use it
     -- Better to use /ad commands, as movement using Lifestream is poorly implemented and can get stuck with low fps:
     -- /ad goto Barracks - go to barracks
     -- /ad goto Inn - go to inn
