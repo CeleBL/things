@@ -867,10 +867,10 @@ end
 CharacterStates.dutyDungeon = function()
     local function ManageCombatPlugins(enable)
         if PluginCommands.NotUse then return end
-        local hasRotation = HasPlugin("RotationSolver")
-        local hasWrath = HasPlugin("WrathCombo")
-        local hasBM = HasPlugin("BossMod")
-        local hasBMR = HasPlugin("BossModReborn")
+        local hasRotation = false
+        local hasWrath = true
+        local hasBM = false
+        local hasBMR = true
         
         if not (hasRotation and hasWrath) then
             if hasRotation and not PluginCommands.RotationSolver.NotUse then
@@ -986,7 +986,7 @@ CharacterStates.dutyDungeon = function()
 end
 
 CharacterStates.endState = function()
-    if GetInventoryFreeSlotCount() <= GC_Turnin_Free_Slots and GC_Turnin_Free_Slots > 0 and HasPlugin("Deliveroo") and i > 12 or DeliverooIsTurnInRunning() then
+    if GetInventoryFreeSlotCount() <= GC_Turnin_Free_Slots and GC_Turnin_Free_Slots > 0 and i > 12 or DeliverooIsTurnInRunning() then
         if DeliverooIsTurnInRunning() then
             GC_Turnin_Free_Slots = 0
             yield("/echo [WondrousTails] Deliveroo is Turnin Running...")
@@ -1018,10 +1018,6 @@ for _, setting in ipairs(AutoDutySettings) do
     if SavedSettings[setting] then yield("/echo [WondrousTails] Disabling " .. setting .. ": enabled") IPC.AutoDuty.SetConfig(setting, "False") end
 end
 
-if HasPlugin("RotationSolver") then
-    yield("/echo [WondrousTails] Disabling RotationSolver FilterOneHpInvincible")
-    yield("/rotation Settings FilterOneHpInvincible False")
-end
 
 math.randomseed(os.time())
 State = CharacterStates.start
@@ -1034,10 +1030,6 @@ while not StopFlag do
     end
 end
 
-if HasPlugin("RotationSolver") then
-    yield("/echo [WondrousTails] Restoring RotationSolver FilterOneHpInvincible")
-    yield("/rotation Settings FilterOneHpInvincible True")
-end
 
 for setting, wasEnabled in pairs(SavedSettings) do
     if wasEnabled then yield("/echo [WondrousTails] Restoring " .. setting .. " to enabled") IPC.AutoDuty.SetConfig(setting, "True") end
