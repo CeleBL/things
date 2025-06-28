@@ -6,6 +6,11 @@
 --The idea of this script is to make it slightly more successful at winning races rather than just
 --using other plugins that simply queue for 20 races.
 
+
+--This script relies on the plugin YesAlready to exit the dialog at the end of the race to return.
+--'YesAlready' > 'Bothers' > 'Minigames and Special Events' > 'RaceChocoboResult'
+--'YesAlready' Repo (https://github.com/PunishXIV/YesAlready)
+
 yield("/echo Chocobo Racing Script Starting...")
 
 
@@ -46,23 +51,19 @@ for loops = NumOfRaces, 1, -1 do
 		end
 	until supersprinting == true
 
-	yield("/echo Controlling the Chocobo...")
-	yield("/echo Holding Left.")
+	yield("/echo Hugging the left-side of the track.")
 	yield("/hold A")
-	yield("/echo Waiting 5 Seconds.")
 	yield("/wait 5")
-	yield("/echo Releasing Left.")
 	yield("/release A")
-	yield("/echo Waiting 10 Seconds.")
+	yield("/echo Waiting 10 Seconds then using Choco Cure III.")
 	yield("/wait 10")
-	yield("/echo Using Choco Cure III.")
 	Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) --6 = Choco Cure III
 
-	yield("/echo Attempting to use any Race Items (and Choco Cure III) every 5 seconds.")
+	yield("/echo Now attempting to use any Race Items, and Choco Cure III, every 5 seconds.")
 	repeat
 		for i = 1, 11 do
 			Actions.ExecuteAction(i, luanet.enum(ActionType, 'ChocoboRaceItem')) -- Cycles through all items.
-			Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) --6 = Choco Cure III
+			Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) --6 = Choco Cure III, (If we get a Choco Aether item).
 		end
 		yield("/wait 5")
 		local zone = tostring(Svc.ClientState.TerritoryType)
