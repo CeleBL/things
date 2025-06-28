@@ -1,7 +1,18 @@
-yield("/echo Chocobo Racing Script Starting.")
-racenum = 0
+--This script will attempt to run X number of Sagolii Road Chocobo Races.
+--It will use Super Sprint at the start of the race, then hugs the left-side of the track.
+--It will then use any race items and Choco Cure III, every 5 seconds, until the end of the race.
+--See (https://exd.camora.dev/sheet/ChocoboRaceAbility) for a full list of Chocobo Race Abilities.
 
-for loops = 20, 1, -1 do
+--The idea of this script is to make it slightly more successful at winning races rather than just
+--using other plugins that simply queue for 20 races.
+
+yield("/echo Chocobo Racing Script Starting...")
+
+
+racenum = 0
+NumOfRaces = 20 --Change this if you want to do less than 20.
+
+for loops = NumOfRaces, 1, -1 do
 	racenum = racenum+1
 	yield("/echo Attempting to queue for Race Number:"..racenum)
 
@@ -50,7 +61,7 @@ for loops = 20, 1, -1 do
 	yield("/echo Attempting to use any Race Items (and Choco Cure III) every 5 seconds.")
 	repeat
 		for i = 1, 11 do
-			Actions.ExecuteAction(i, luanet.enum(ActionType, 'ChocoboRaceItem'))
+			Actions.ExecuteAction(i, luanet.enum(ActionType, 'ChocoboRaceItem')) -- Cycles through all items.
 			Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) --6 = Choco Cure III
 		end
 		yield("/wait 5")
