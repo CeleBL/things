@@ -142,7 +142,7 @@ local ClassList =
 local PluginCommands = {
     NotUse = false,
     RotationSolver = {
-        NotUse = true,
+        NotUse = false,
         enable = "/rotation auto",
         disable = "/rotation off"
     },
@@ -152,7 +152,7 @@ local PluginCommands = {
         disable = "/wrath auto off"
     },
     BossMod = {
-        NotUse = true,
+        NotUse = false,
         set_preset_without_rotation = "/vbm ar set AutoDuty",
         set_preset_with_rotation = "/vbm ar set AutoDuty Passive"
     },
