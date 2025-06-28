@@ -1,11 +1,11 @@
 --This script will attempt to run X number of Sagolii Road Chocobo Races.
---It will use Super Sprint at the start of the race, then hugs the left-side of the track.
+--It will use Super Sprint at the start of the race, then hug the left-side of the track.
 --It will then use any race items and Choco Cure III, every 5 seconds, until the end of the race.
 --See (https://exd.camora.dev/sheet/ChocoboRaceAbility) for a full list of Chocobo Race Abilities.
 
 --The idea of this script is to make it slightly more successful at winning races rather than just
 --using other plugins that simply queue for 20 races.
---It's not going to win every race!
+--It's not going to win every race.
 
 --This script relies on the plugin YesAlready to exit the dialog at the end of the race to return.
 --'YesAlready' > 'Bothers' > 'Minigames and Special Events' > 'RaceChocoboResult'
