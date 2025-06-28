@@ -7,6 +7,9 @@
 --using other plugins that simply queue for 20 races.
 --It's not going to win every race.
 
+--We are assuming your chocobo knows Super Sprint and Choco Cure III.
+--If your chocobo uses other abilities then tweak it for your needs.
+
 --This script relies on the plugin YesAlready to exit the dialog at the end of the race to return.
 --'YesAlready' > 'Bothers' > 'Minigames and Special Events' > 'RaceChocoboResult'
 --'YesAlready' Repo (https://github.com/PunishXIV/YesAlready)
