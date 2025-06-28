@@ -13,6 +13,7 @@
 
 --To Do:
 ---Add in checks to end the script if the user cancels the queue.
+---Add in checks to see if we have an item before trying to use all items.
 
 yield("/echo Chocobo Racing Script Starting...")
 
