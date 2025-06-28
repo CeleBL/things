@@ -45,13 +45,13 @@ for loops = 20, 1, -1 do
 	yield("/echo Waiting 10 Seconds.")
 	yield("/wait 10")
 	yield("/echo Using Choco Cure III.")
-	Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility)
+	Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) --6 = Choco Cure III
 
 	yield("/echo Attempting to use any Race Items (and Choco Cure III) every 5 seconds.")
 	repeat
 		for i = 1, 11 do
 			Actions.ExecuteAction(i, luanet.enum(ActionType, 'ChocoboRaceItem'))
-			Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) 
+			Actions.ExecuteAction(6, ActionType.ChocoboRaceAbility) --6 = Choco Cure III
 		end
 		yield("/wait 5")
 		local zone = tostring(Svc.ClientState.TerritoryType)
